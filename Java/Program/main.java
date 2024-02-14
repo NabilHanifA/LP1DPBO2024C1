@@ -42,7 +42,7 @@ public class main {
                     Anggota temp = new Anggota(id, nama, bidang, partai);
                     list.add(temp);
                 }
-                Anggota.displayTable(list);
+                displayTable(list);
             }
             else if (choice == 2) {
                 if (list.isEmpty()) {
@@ -71,7 +71,7 @@ public class main {
                         System.out.println("Index Invalid");
                     }
                 }
-                Anggota.displayTable(list);
+                displayTable(list);
             }
             else if (choice == 3) {
                 if (list.isEmpty()) {
@@ -87,15 +87,60 @@ public class main {
                         System.out.println("Index Invalid\n");
                     }
                 }
-                Anggota.displayTable(list);
+                displayTable(list);
 
             } else if (choice == 4) {
                 if (list.isEmpty()) {
                     System.out.println("List Kosong");
                 } else {
-                    Anggota.displayTable(list);
+                    displayTable(list);
                 }
             }
         } while ( choice != 4);
+    }
+
+    public static void displayTable(ArrayList<Anggota> list) {
+        // Determine maximum lengths for each column
+        int maxNoLength = String.valueOf(list.size()).length();
+        int maxIdLength = 2; // Minimum length for ID column
+        int maxNamaLength = 4; // Minimum length for Nama column
+        int maxBidangLength = 6; // Minimum length for Bidang column
+        int maxPartaiLength = 6; // Minimum length for Partai column
+        
+        // Update maximum lengths based on the data in the list
+        for (Anggota anggota : list) {
+            maxIdLength = Math.max(maxIdLength, anggota.getId().length());
+            maxNamaLength = Math.max(maxNamaLength, anggota.getNama().length());
+            maxBidangLength = Math.max(maxBidangLength, anggota.getBidang().length());
+            maxPartaiLength = Math.max(maxPartaiLength, anggota.getPartai().length());
+        }
+        // Print the separator line
+        for (int i = 0; i < maxNoLength + maxIdLength + maxNamaLength + maxBidangLength + maxPartaiLength + 16; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        
+        // Print the table header
+        System.out.printf("| %-" + (maxNoLength + 1) + "s| %-" + (maxIdLength + 1) + "s| %-" + (maxNamaLength + 1) + "s| %-" + (maxBidangLength + 1) + "s| %-" + (maxPartaiLength + 1) + "s|%n",
+                "No", "ID", "Nama", "Bidang", "Partai");
+        
+        // Print the separator line
+        for (int i = 0; i < maxNoLength + maxIdLength + maxNamaLength + maxBidangLength + maxPartaiLength + 16; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        
+        // Print the data
+        for (int i = 0; i < list.size(); i++) {
+            Anggota anggota = list.get(i);
+            System.out.printf("| %-" + (maxNoLength + 1) + "d| %-" + (maxIdLength + 1) + "s| %-" + (maxNamaLength + 1) + "s| %-" + (maxBidangLength + 1) + "s| %-" + (maxPartaiLength + 1) + "s|%n",
+                    (i + 1), anggota.getId(), anggota.getNama(), anggota.getBidang(), anggota.getPartai());
+        }
+
+        // Print the separator line
+        for (int i = 0; i < maxNoLength + maxIdLength + maxNamaLength + maxBidangLength + maxPartaiLength + 16; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }
